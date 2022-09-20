@@ -1,7 +1,14 @@
-def get_greeting(name: str) -> str:
-    return "Hello," + name + "!"
+import unittest
+
+from hello import get_greeting
 
 
-if __name__ == "__main__":
-    message = get_greeting("World")
-    print(message)
+class HelloTestCase(unittest.TestCase):
+    def test_hello(self):
+        cases = [
+            ("World", "Hello, World!"),
+            ("Anonymous", "Hello, Anonymous!"),
+        ]
+        for i, (name, message) in enumerate(cases, start=1):
+            with self.subTest(case=i):
+                self.assertEqual(message, get_greeting(name))
